@@ -36,7 +36,36 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     def generalDeps = rootProject.ext.generalDeps
+
     implementation generalDeps.appcompatV7
+    implementation generalDeps.room
+    annotationProcessor generalDeps.roomCompiler
+    implementation generalDeps.roomRxjava2
+
+    implementation generalDeps.timber
+    implementation generalDeps.okhttp
+    implementation generalDeps.okhttp_logging_intercepteor
+    implementation generalDeps.retrofit
+    implementation generalDeps.retrofit_converter_gson
+    implementation generalDeps.retrofit_adapter_rxjava2
+    implementation generalDeps.gson
+    implementation(generalDeps.apacheCommon) {
+        exclude module: 'commons-io'
+    }
+    implementation generalDeps.apache_commons_codec
+    compileOnly generalDeps.autoValue
+    annotationProcessor generalDeps.autoValueProcessor
+    compileOnly generalDeps.autoValueGson
+    annotationProcessor generalDeps.autoValueGsonProcessor
+    compileOnly generalDeps.autoValueParcel
+    annotationProcessor generalDeps.autoValueParcelProcessor
+    implementation generalDeps.rxJava2
+    implementation generalDeps.rxAndroid2
+    implementation generalDeps.dagger
+    implementation generalDeps.daggerSupporter
+    annotationProcessor generalDeps.daggerProcessor
+
+    testImplementation generalDeps.roomTest
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

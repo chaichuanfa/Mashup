@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
-
+apply plugin: "androidx.navigation.safeargs"
 apply from: '../config/quality.gradle'
 
 android {
@@ -51,6 +51,10 @@ android {
         javaMaxHeapSize "6g"
     }
 
+    dataBinding {
+        enabled = true;
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -62,8 +66,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':common')
+    implementation project(':model')
 
     def generalDeps = rootProject.ext.generalDeps
+    // support library
     implementation generalDeps.recyclerView
     implementation generalDeps.appcompatV7
     implementation generalDeps.supportV4
@@ -71,30 +77,37 @@ dependencies {
     implementation generalDeps.design
     implementation generalDeps.percent
     implementation generalDeps.multiDex
-    implementation generalDeps.constraint
+    implementation generalDeps.constraintLayout
+    implementation generalDeps.lifecycle
+    implementation generalDeps.room
+    annotationProcessor generalDeps.roomCompiler
+    implementation generalDeps.roomRxjava2
+    implementation generalDeps.paging
+    implementation generalDeps.pagingRxjava2
+    implementation generalDeps.navigationFragment
+    implementation generalDeps.navigationUI
+    implementation generalDeps.workRuntime
+    implementation generalDeps.workRxjava2
 
+    //utils
+    implementation generalDeps.butterKnife
+    annotationProcessor generalDeps.butterKnifeProcessor
+    implementation generalDeps.fresco
+    implementation generalDeps.materialDialogs
+    implementation generalDeps.eventbus
+    annotationProcessor generalDeps.eventbusProcessor
+
+    implementation generalDeps.timber
     implementation generalDeps.okhttp
     implementation generalDeps.okhttp_logging_intercepteor
     implementation generalDeps.retrofit
     implementation generalDeps.retrofit_converter_gson
     implementation generalDeps.retrofit_adapter_rxjava2
     implementation generalDeps.gson
-
     implementation(generalDeps.apacheCommon) {
         exclude module: 'commons-io'
     }
-    implementation generalDeps.timber
-    implementation generalDeps.butterKnife
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    annotationProcessor generalDeps.butterKnifeProcessor
-    implementation generalDeps.fresco
     implementation generalDeps.apache_commons_codec
-    implementation generalDeps.materialDialogs
-    implementation generalDeps.eventbus
-    annotationProcessor generalDeps.eventbusProcessor
-    implementation generalDeps.Arouter
-    annotationProcessor generalDeps.ArouterProcessor
-
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor
     compileOnly generalDeps.autoValueGson
@@ -107,7 +120,11 @@ dependencies {
     implementation generalDeps.daggerSupporter
     annotationProcessor generalDeps.daggerProcessor
 
+    testImplementation generalDeps.archCoreTest
+    testImplementation generalDeps.roomTest
+    testImplementation generalDeps.pagingTest
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation generalDeps.workTest
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
