@@ -1,0 +1,81 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+
+    def globalConfig = rootProject.ext
+    compileSdkVersion globalConfig.androidCompileSdkVersion
+    buildToolsVersion globalConfig.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion globalConfig.androidMinSdkVersion
+        targetSdkVersion globalConfig.androidTargetSdkVersion
+        versionCode globalConfig.androidVersionCode
+        versionName globalConfig.androidVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def generalDeps = rootProject.ext.generalDeps
+    implementation generalDeps.recyclerView
+    implementation generalDeps.appcompatV7
+    implementation generalDeps.supportV4
+    implementation generalDeps.androidAnnotations
+    implementation generalDeps.design
+    implementation generalDeps.percent
+    implementation generalDeps.multiDex
+    implementation generalDeps.constraint
+
+    implementation generalDeps.okhttp
+    implementation generalDeps.okhttp_logging_intercepteor
+    implementation generalDeps.retrofit
+    implementation generalDeps.retrofit_converter_gson
+    implementation generalDeps.retrofit_adapter_rxjava2
+    implementation generalDeps.gson
+
+    implementation(generalDeps.apacheCommon) {
+        exclude module: 'commons-io'
+    }
+    implementation generalDeps.timber
+    implementation generalDeps.butterKnife
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    annotationProcessor generalDeps.butterKnifeProcessor
+    implementation generalDeps.fresco
+    implementation generalDeps.apache_commons_codec
+    implementation generalDeps.materialDialogs
+    implementation generalDeps.eventbus
+
+    compileOnly generalDeps.autoValue
+    annotationProcessor generalDeps.autoValueProcessor
+    compileOnly generalDeps.autoValueGson
+    annotationProcessor generalDeps.autoValueGsonProcessor
+    compileOnly generalDeps.autoValueParcel
+    annotationProcessor generalDeps.autoValueParcelProcessor
+    implementation generalDeps.rxJava2
+    implementation generalDeps.rxAndroid2
+    implementation generalDeps.dagger
+    implementation generalDeps.daggerSupporter
+    annotationProcessor generalDeps.daggerProcessor
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
