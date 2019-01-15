@@ -63,37 +63,43 @@ dependencies {
     implementation generalDeps.lifecycle
     implementation generalDeps.lifecycleReactivestreams
 
-    implementation generalDeps.fragmentation
+    compile(generalDeps.fragmentation) {
+        exclude module: 'appcompat-v7'
+    }
 
-    implementation generalDeps.okhttp
-    implementation generalDeps.okhttp_logging_intercepteor
-    implementation generalDeps.retrofit
-    implementation generalDeps.retrofit_converter_gson
-    implementation generalDeps.retrofit_adapter_rxjava2
-    implementation generalDeps.gson
+    compile generalDeps.okhttp
+    compile generalDeps.okhttp_logging_intercepteor
+    compile generalDeps.retrofit
+    compile generalDeps.retrofit_converter_gson
+    compile generalDeps.retrofit_adapter_rxjava2
+    compile generalDeps.gson
 
-    implementation generalDeps.apacheCommon
-    implementation generalDeps.timber
-    implementation generalDeps.butterKnife
+    compile generalDeps.apacheCommon
+    compile generalDeps.timber
+    compile generalDeps.butterKnife
     annotationProcessor generalDeps.butterKnifeProcessor
-    implementation generalDeps.fresco
-    implementation generalDeps.apache_commons_codec
-    implementation generalDeps.materialDialogs
-    implementation generalDeps.eventbus
-    implementation generalDeps.Arouter
+    compile generalDeps.fresco
+    compile generalDeps.apache_commons_codec
+    compile generalDeps.materialDialogs
+    compile generalDeps.eventbus
+    compile generalDeps.Arouter
     annotationProcessor generalDeps.ArouterCompiler
-    implementation generalDeps.guava
+    compile generalDeps.guava
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor
     compileOnly generalDeps.autoValueGson
     annotationProcessor generalDeps.autoValueGsonProcessor
     compileOnly generalDeps.autoValueParcel
     annotationProcessor generalDeps.autoValueParcelProcessor
-    implementation generalDeps.rxJava2
-    implementation generalDeps.rxAndroid2
-    implementation generalDeps.dagger
-    implementation generalDeps.daggerSupporter
+    compile generalDeps.rxJava2
+    compile generalDeps.rxAndroid2
+    compile generalDeps.dagger
+    compile generalDeps.daggerSupporter
     annotationProcessor generalDeps.daggerProcessor
+    compile generalDeps.ok2curl
+    compile generalDeps.stetho
+    compile generalDeps.stethoOkhttp3
+    compile generalDeps.threetenabp
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

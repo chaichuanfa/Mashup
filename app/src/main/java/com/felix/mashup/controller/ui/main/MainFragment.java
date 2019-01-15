@@ -6,6 +6,7 @@ import com.felix.mashup.controller.ui.main.di.MainComponent;
 import com.felix.mashup.databinding.MainFragmentBinding;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusException;
 
 import android.view.View;
 
@@ -43,7 +44,11 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
         if (mViewModel != null) {
             component.inject(mViewModel);
             if (!mBus.isRegistered(mViewModel)) {
-                mBus.register(mViewModel);
+                try {
+                    mBus.register(mViewModel);
+                } catch (EventBusException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

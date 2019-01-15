@@ -5,6 +5,7 @@ import com.felix.mashup.app.di.ApplicationComponent;
 import com.felix.mashup.controller.MainActivity;
 import com.felix.mashup.controller.ui.main.MainFragment;
 import com.felix.mashup.controller.ui.main.MainViewModel;
+import com.felix.model.user_info.module.UserInfoModule;
 
 import dagger.Component;
 
@@ -14,7 +15,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,
         modules = {
-                MainModule.class
+                MainModule.class,
+                UserInfoModule.class
         }
 )
 public interface MainComponent {

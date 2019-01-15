@@ -1,17 +1,17 @@
 package com.felix.mashup.base;
 
 import com.felix.common.base.BaseCommonFragment;
+import com.felix.common.base.BaseViewModel;
 import com.felix.common.di.HasComponent;
 
 import org.greenrobot.eventbus.EventBus;
 
-import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ViewDataBinding;
 
 /**
  * Created by chaichuanfa on 2019/1/11
  */
-public abstract class BaseFragment<V extends AndroidViewModel, D extends ViewDataBinding>
+public abstract class BaseFragment<V extends BaseViewModel, D extends ViewDataBinding>
         extends BaseCommonFragment<V, D> {
 
     @Override

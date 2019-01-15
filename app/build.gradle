@@ -18,6 +18,10 @@ android {
         testInstrumentationRunner globalConfig.testInstrumentationRunner
         multiDexEnabled true
 
+        buildConfigField "String", "API_BASE_URL", "\"https://api.app.qwikmatch.com\""
+        buildConfigField "String", "BASIC_AUTH_ID", "\"test_id\""
+        buildConfigField "String", "BASIC_AUTH_PASS", "\"test_pass\""
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName(),
@@ -88,7 +92,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':common')
+    compile project(':common')
     implementation project(':model')
 
     def generalDeps = rootProject.ext.generalDeps
@@ -116,34 +120,20 @@ dependencies {
     //utils
     implementation generalDeps.butterKnife
     annotationProcessor generalDeps.butterKnifeProcessor
-    implementation generalDeps.fresco
-    implementation generalDeps.materialDialogs
     implementation generalDeps.eventbus
     annotationProcessor generalDeps.eventbusProcessor
     implementation generalDeps.Arouter
     annotationProcessor generalDeps.ArouterCompiler
 
-    implementation generalDeps.timber
-    implementation generalDeps.okhttp
-    implementation generalDeps.okhttp_logging_intercepteor
-    implementation generalDeps.retrofit
-    implementation generalDeps.retrofit_converter_gson
-    implementation generalDeps.retrofit_adapter_rxjava2
-    implementation generalDeps.gson
-    implementation generalDeps.apacheCommon
-    implementation generalDeps.apache_commons_codec
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor
     compileOnly generalDeps.autoValueGson
     annotationProcessor generalDeps.autoValueGsonProcessor
     compileOnly generalDeps.autoValueParcel
     annotationProcessor generalDeps.autoValueParcelProcessor
-    implementation generalDeps.rxJava2
-    implementation generalDeps.rxAndroid2
     implementation generalDeps.dagger
     implementation generalDeps.daggerSupporter
     annotationProcessor generalDeps.daggerProcessor
-    implementation generalDeps.guava
 
     testImplementation generalDeps.archCoreTest
     testImplementation generalDeps.roomTest

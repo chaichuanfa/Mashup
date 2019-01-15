@@ -1,11 +1,14 @@
 package com.felix.mashup.app;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.facebook.stetho.Stetho;
 import com.felix.common.uitls.log.LogToFileTree;
 import com.felix.mashup.BuildConfig;
+import com.felix.mashup.app.di.AppConfigModule;
 import com.felix.mashup.app.di.ApplicationComponent;
 import com.felix.mashup.app.di.ApplicationModule;
 import com.felix.mashup.app.di.DaggerApplicationComponent;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import android.support.multidex.MultiDexApplication;
 
@@ -25,14 +28,20 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        initTimber();
+        logCollect();
         injectComponent();
         initARouter();
+        AndroidThreeTen.init(this);
     }
 
-    private void initTimber() {
-        if (BuildConfig.DEBUG) {
+    private void logCollect() {
+        if (AppConfigModule.IS_TEST) {
             Timber.plant(new LogToFileTree(this, getPackageName()));
+            Stetho.initialize(Stetho.newInitializerBuilder(this)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                    .enableWebKitInspector(
+                            Stetho.defaultInspectorModulesProvider(this))
+                    .build());
         }
     }
 
@@ -47,6 +56,7 @@ public class App extends MultiDexApplication {
     private void injectComponent() {
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(getInstance()))
+                .appConfigModule(new AppConfigModule(""))
                 .build();
         mApplicationComponent.inject(this);
     }

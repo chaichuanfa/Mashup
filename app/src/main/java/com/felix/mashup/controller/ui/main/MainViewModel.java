@@ -2,6 +2,7 @@ package com.felix.mashup.controller.ui.main;
 
 import com.felix.common.base.BaseViewModel;
 import com.felix.common.uitls.net.NetUtils;
+import com.felix.model.user_info.UserRepository;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -18,6 +19,9 @@ public class MainViewModel extends BaseViewModel {
 
     @Inject
     NetUtils mNetUtils;
+
+    @Inject
+    UserRepository mUserRepository;
 
     public MainViewModel(@NonNull Application application) {
         super(application);

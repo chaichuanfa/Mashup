@@ -9,6 +9,9 @@ import javax.inject.Singleton;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * Created by chaichuanfa on 2019/1/14
+ */
 @Singleton
 public class NetUtils {
 
