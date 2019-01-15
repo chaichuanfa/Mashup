@@ -1,5 +1,8 @@
 package com.felix.common.base;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusException;
+
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
@@ -21,8 +24,17 @@ public abstract class BaseViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        if (getBus() != null && getBus().isRegistered(this)) {
+            try {
+                getBus().unregister(this);
+            } catch (EventBusException e) {
+                e.printStackTrace();
+            }
+        }
         clearDisposable();
     }
+
+    protected abstract EventBus getBus();
 
     protected void addDisposable(Disposable disposable) {
         if (this.mCompositeDisposable == null || mCompositeDisposable.isDisposed()) {

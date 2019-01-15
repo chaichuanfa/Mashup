@@ -20,7 +20,8 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments = [AROUTER_MODULE_NAME: project.getName(),
+                             eventBusIndex      : 'com.felix.mashup.EventBusIndex']
             }
         }
 
@@ -79,7 +80,7 @@ android {
 
         }
 
-        production{
+        production {
 
         }
     }
@@ -111,7 +112,7 @@ dependencies {
     implementation generalDeps.workRxjava2
 
     implementation generalDeps.fragmentation
-    
+
     //utils
     implementation generalDeps.butterKnife
     annotationProcessor generalDeps.butterKnifeProcessor

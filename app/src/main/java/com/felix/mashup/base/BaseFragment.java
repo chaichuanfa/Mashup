@@ -3,6 +3,8 @@ package com.felix.mashup.base;
 import com.felix.common.base.BaseCommonFragment;
 import com.felix.common.di.HasComponent;
 
+import org.greenrobot.eventbus.EventBus;
+
 import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ViewDataBinding;
 
@@ -15,6 +17,11 @@ public abstract class BaseFragment<V extends AndroidViewModel, D extends ViewDat
     @Override
     protected void unbindViews() {
 
+    }
+
+    @Override
+    protected EventBus getBus() {
+        return null;
     }
 
     /**

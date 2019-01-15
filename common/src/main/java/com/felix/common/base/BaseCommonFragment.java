@@ -3,6 +3,9 @@ package com.felix.common.base;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.felix.common.uitls.GenericSuperclassUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusException;
+
 import android.app.Activity;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModelProviders;
@@ -82,6 +85,13 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bindViews(view);
+        if (getBus() != null && !getBus().isRegistered(this)) {
+            try {
+                getBus().register(this);
+            } catch (EventBusException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -106,6 +116,9 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
     public void onDestroyView() {
         mDelegate.onDestroyView();
         super.onDestroyView();
+        if (getBus() != null && getBus().isRegistered(this)) {
+            getBus().unregister(this);
+        }
         clearDisposable();
         unbindViews();
     }
@@ -131,6 +144,8 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
     protected abstract void bindViews(View view);
 
     protected abstract void unbindViews();
+
+    protected abstract EventBus getBus();
 
     protected void addDisposable(Disposable disposable) {
         if (this.mCompositeDisposable == null || mCompositeDisposable.isDisposed()) {

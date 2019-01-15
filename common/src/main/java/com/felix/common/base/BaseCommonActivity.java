@@ -2,6 +2,9 @@ package com.felix.common.base;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusException;
+
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -29,12 +32,22 @@ public abstract class BaseCommonActivity extends AppCompatActivity implements IS
         mDelegate.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);
         injectDependencies();
+        if (getBus() != null && !getBus().isRegistered(this)) {
+            try {
+                getBus().register(this);
+            } catch (EventBusException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     protected void onDestroy() {
         mDelegate.onDestroy();
         super.onDestroy();
+        if (getBus() != null && getBus().isRegistered(this)) {
+            getBus().unregister(this);
+        }
     }
 
     @Override
@@ -268,4 +281,6 @@ public abstract class BaseCommonActivity extends AppCompatActivity implements IS
     }
 
     protected abstract void injectDependencies();
+
+    protected abstract EventBus getBus();
 }

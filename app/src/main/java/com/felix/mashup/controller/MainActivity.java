@@ -1,23 +1,17 @@
 package com.felix.mashup.controller;
 
 import com.felix.common.di.HasComponent;
-import com.felix.common.uitls.net.NetUtils;
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseActivity;
 import com.felix.mashup.controller.ui.main.MainFragment;
 import com.felix.mashup.controller.ui.main.di.DaggerMainComponent;
 import com.felix.mashup.controller.ui.main.di.MainComponent;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import android.os.Bundle;
 
-import javax.inject.Inject;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent> {
-
-    @Inject
-    NetUtils mNetUtils;
 
     private MainComponent mMainComponent;
 
@@ -29,8 +23,6 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
         if (fragment == null) {
             loadRootFragment(R.id.container, MainFragment.newInstance());
         }
-
-        checkNotNull(mNetUtils);
     }
 
     @Override
@@ -44,5 +36,10 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     @Override
     public MainComponent getComponent() {
         return mMainComponent;
+    }
+
+    @Subscribe
+    public void onStringEvent(String event) {
+
     }
 }

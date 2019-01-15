@@ -3,6 +3,8 @@ package com.felix.mashup.app.di;
 import com.felix.common.uitls.net.NetUtils;
 import com.felix.mashup.app.App;
 
+import org.greenrobot.eventbus.EventBus;
+
 import android.app.Application;
 import android.content.Context;
 
@@ -16,7 +18,8 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
-        ApplicationModule.class
+        ApplicationModule.class,
+        AppConfigModule.class
 })
 public interface ApplicationComponent {
 
@@ -25,6 +28,8 @@ public interface ApplicationComponent {
     Application application();
 
     Context context();
+
+    EventBus eventBus();
 
     NetUtils netUtils();
 }
