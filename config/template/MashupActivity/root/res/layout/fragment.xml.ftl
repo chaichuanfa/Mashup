@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewmodel"
-                type="com.felix.mashup.controller.main.vm.MainViewModel"
+                type="${featurePackageName}.vm.${viewModelClass}"
                 />
     </data>
 
@@ -12,22 +12,13 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
-            tools:context=".controller.main.ui.MainFragment"
+            android:fitsSystemWindows="true"
+            tools:context="${featurePackageName}.ui.${fragmentClass}"
             >
-
-        <TextView
-                android:id="@+id/message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Mashup"
-                />
 
     </RelativeLayout>
 </layout>
-

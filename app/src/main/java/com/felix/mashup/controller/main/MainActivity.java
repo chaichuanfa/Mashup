@@ -1,16 +1,19 @@
-package com.felix.mashup.controller;
+package com.felix.mashup.controller.main;
 
 import com.felix.common.di.HasComponent;
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseActivity;
-import com.felix.mashup.controller.ui.main.MainFragment;
-import com.felix.mashup.controller.ui.main.di.DaggerMainComponent;
-import com.felix.mashup.controller.ui.main.di.MainComponent;
+import com.felix.mashup.controller.main.di.DaggerMainComponent;
+import com.felix.mashup.controller.main.di.MainComponent;
+import com.felix.mashup.controller.main.ui.MainFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import android.os.Bundle;
 
+/**
+ * Created by chaichuanfa on 2019/1/15
+ */
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent> {
 
     private MainComponent mMainComponent;

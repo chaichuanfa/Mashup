@@ -1,4 +1,4 @@
-package com.felix.mashup.controller.ui.main;
+package com.felix.mashup.controller.main.vm;
 
 import com.felix.common.base.BaseViewModel;
 import com.felix.common.uitls.net.NetUtils;
@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+/**
+ * Created by chaichuanfa on 2019/1/15
+ */
 public class MainViewModel extends BaseViewModel {
 
     @Inject

@@ -1,9 +1,9 @@
-package com.felix.mashup.controller.ui.main;
+package ${featurePackageName}.ui;
 
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseFragment;
-import com.felix.mashup.controller.ui.main.di.MainComponent;
-import com.felix.mashup.databinding.MainFragmentBinding;
+import ${featurePackageName}.di.${componentClass};
+import com.felix.mashup.databinding.${fragmentClass}Binding;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusException;
@@ -12,23 +12,18 @@ import android.view.View;
 
 import javax.inject.Inject;
 
-public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBinding> {
+public class ${fragmentClass} extends BaseFragment<${viewModelClass}, ${fragmentClass}Binding> {
 
     @Inject
     EventBus mBus;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static ${fragmentClass} newInstance() {
+        return new ${fragmentClass}();
     }
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.main_fragment;
-    }
-
-    @Override
-    protected void bindViews(View view) {
-        mViewModel.showNetworkType();
+        return R.layout.${fragmentLayout};
     }
 
     @Override
@@ -38,8 +33,13 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
     }
 
     @Override
+    protected void bindViews(View view) {
+        // TODO: init view
+    }
+
+    @Override
     protected void injectDependencies() {
-        MainComponent component = this.getComponent(MainComponent.class);
+        ${componentClass} component = this.getComponent(${componentClass}.class);
         component.inject(this);
         if (mViewModel != null) {
             component.inject(mViewModel);
@@ -57,4 +57,5 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
     protected EventBus getBus() {
         return mBus;
     }
+
 }

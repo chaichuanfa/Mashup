@@ -1,8 +1,9 @@
-package com.felix.mashup.controller.ui.main.types;
+package com.felix.mashup.controller.main.types;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
+
 
 /**
  * Created by chaichuanfa on 2019/1/15
