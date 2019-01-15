@@ -1,7 +1,25 @@
 package com.felix.mashup.controller.ui.main;
 
-import android.arch.lifecycle.ViewModel;
+import com.felix.common.base.BaseViewModel;
+import com.felix.common.uitls.net.NetUtils;
 
-public class MainViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+import android.app.Application;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import javax.inject.Inject;
+
+public class MainViewModel extends BaseViewModel {
+
+    @Inject
+    NetUtils mNetUtils;
+
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+    public void showNetworkType() {
+        Toast.makeText(getApplication(), mNetUtils.getNetTypeString(), Toast.LENGTH_SHORT).show();
+    }
+
 }

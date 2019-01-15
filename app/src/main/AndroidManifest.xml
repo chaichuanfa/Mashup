@@ -19,7 +19,8 @@
         <activity
                 android:name=".controller.MainActivity"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar"
+                android:theme="@style/AppTheme"
+                android:launchMode="singleTask"
                 >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,9 +34,9 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data
-                        android:host="com.felix.mashup"
+                        android:scheme="@string/mashup_scheme"
+                        android:host="@string/mashup_host"
                         android:path="/main"
-                        android:scheme="mashup"
                         />
             </intent-filter>
         </activity>

@@ -1,36 +1,40 @@
 package com.felix.mashup.controller.ui.main;
 
 import com.felix.mashup.R;
+import com.felix.mashup.base.BaseFragment;
+import com.felix.mashup.controller.ui.main.di.MainComponent;
+import com.felix.mashup.databinding.MainFragmentBinding;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-public class MainFragment extends Fragment {
-
-    private MainViewModel mViewModel;
+public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBinding> {
 
     public static MainFragment newInstance() {
         return new MainFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_fragment, container, false);
+    protected int getLayoutRes() {
+        return R.layout.main_fragment;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        // TODO: Use the ViewModel
+    protected void bindViews(View view) {
+        mViewModel.showNetworkType();
     }
 
+    @Override
+    protected void bindViewModel() {
+        super.bindViewModel();
+        mDataBinding.setViewmodel(mViewModel);
+    }
+
+    @Override
+    protected void injectDependencies() {
+        MainComponent component = this.getComponent(MainComponent.class);
+        component.inject(this);
+        if (mViewModel != null) {
+            component.inject(mViewModel);
+        }
+    }
 }

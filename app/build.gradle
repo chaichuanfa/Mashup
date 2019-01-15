@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.alibaba.arouter'
 apply from: '../config/quality.gradle'
 
 android {
@@ -18,14 +18,14 @@ android {
         testInstrumentationRunner globalConfig.testInstrumentationRunner
         multiDexEnabled true
 
-        ndk {
-            abiFilters 'armeabi-v7a'
-        }
-
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
+        }
+
+        ndk {
+            abiFilters 'armeabi-v7a'
         }
     }
 
@@ -56,9 +56,31 @@ android {
     }
 
     buildTypes {
+        debug {
+
+        }
+
+        regression {
+            matchingFallbacks = ['release', 'debug']
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        dev {
+
+        }
+
+        staging {
+
+        }
+
+        production{
+
         }
     }
 }
@@ -79,16 +101,17 @@ dependencies {
     implementation generalDeps.multiDex
     implementation generalDeps.constraintLayout
     implementation generalDeps.lifecycle
+    implementation generalDeps.lifecycleReactivestreams
     implementation generalDeps.room
     annotationProcessor generalDeps.roomCompiler
     implementation generalDeps.roomRxjava2
     implementation generalDeps.paging
     implementation generalDeps.pagingRxjava2
-    implementation generalDeps.navigationFragment
-    implementation generalDeps.navigationUI
     implementation generalDeps.workRuntime
     implementation generalDeps.workRxjava2
 
+    implementation generalDeps.fragmentation
+    
     //utils
     implementation generalDeps.butterKnife
     annotationProcessor generalDeps.butterKnifeProcessor
@@ -96,6 +119,8 @@ dependencies {
     implementation generalDeps.materialDialogs
     implementation generalDeps.eventbus
     annotationProcessor generalDeps.eventbusProcessor
+    implementation generalDeps.Arouter
+    annotationProcessor generalDeps.ArouterCompiler
 
     implementation generalDeps.timber
     implementation generalDeps.okhttp
@@ -104,9 +129,7 @@ dependencies {
     implementation generalDeps.retrofit_converter_gson
     implementation generalDeps.retrofit_adapter_rxjava2
     implementation generalDeps.gson
-    implementation(generalDeps.apacheCommon) {
-        exclude module: 'commons-io'
-    }
+    implementation generalDeps.apacheCommon
     implementation generalDeps.apache_commons_codec
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor
@@ -119,6 +142,7 @@ dependencies {
     implementation generalDeps.dagger
     implementation generalDeps.daggerSupporter
     annotationProcessor generalDeps.daggerProcessor
+    implementation generalDeps.guava
 
     testImplementation generalDeps.archCoreTest
     testImplementation generalDeps.roomTest

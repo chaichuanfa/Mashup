@@ -14,17 +14,33 @@ android {
         versionName globalConfig.androidVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
         ndk {
             abiFilters 'armeabi-v7a'
         }
     }
+
+    flavorDimensions "default"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
+        debug {
+
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -44,6 +60,10 @@ dependencies {
     implementation generalDeps.percent
     implementation generalDeps.multiDex
     implementation generalDeps.constraintLayout
+    implementation generalDeps.lifecycle
+    implementation generalDeps.lifecycleReactivestreams
+
+    implementation generalDeps.fragmentation
 
     implementation generalDeps.okhttp
     implementation generalDeps.okhttp_logging_intercepteor
@@ -52,9 +72,7 @@ dependencies {
     implementation generalDeps.retrofit_adapter_rxjava2
     implementation generalDeps.gson
 
-    implementation(generalDeps.apacheCommon) {
-        exclude module: 'commons-io'
-    }
+    implementation generalDeps.apacheCommon
     implementation generalDeps.timber
     implementation generalDeps.butterKnife
     annotationProcessor generalDeps.butterKnifeProcessor
@@ -62,7 +80,9 @@ dependencies {
     implementation generalDeps.apache_commons_codec
     implementation generalDeps.materialDialogs
     implementation generalDeps.eventbus
-
+    implementation generalDeps.Arouter
+    annotationProcessor generalDeps.ArouterCompiler
+    implementation generalDeps.guava
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor
     compileOnly generalDeps.autoValueGson
@@ -74,6 +94,7 @@ dependencies {
     implementation generalDeps.dagger
     implementation generalDeps.daggerSupporter
     annotationProcessor generalDeps.daggerProcessor
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
