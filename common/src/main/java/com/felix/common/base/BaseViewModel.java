@@ -28,7 +28,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
             try {
                 getBus().unregister(this);
             } catch (EventBusException e) {
-                e.printStackTrace();
+                // ignore
             }
         }
         clearDisposable();

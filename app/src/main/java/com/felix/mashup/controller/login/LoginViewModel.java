@@ -1,17 +1,20 @@
-package ${featurePackageName};
+package com.felix.mashup.controller.login;
 
 import com.felix.common.base.BaseViewModel;
+
 import org.greenrobot.eventbus.EventBus;
+
 import android.app.Application;
 import android.support.annotation.NonNull;
+
 import javax.inject.Inject;
 
-public class ${viewModelClass} extends BaseViewModel {
+public class LoginViewModel extends BaseViewModel {
 
     @Inject
     EventBus mBus;
 
-    public ${viewModelClass}(@NonNull Application application) {
+    public LoginViewModel(@NonNull Application application) {
         super(application);
     }
 

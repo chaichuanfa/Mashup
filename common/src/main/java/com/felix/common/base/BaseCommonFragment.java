@@ -22,13 +22,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import me.yokeyword.fragmentation.ExtraTransaction;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import timber.log.Timber;
 
 /**
  * Created by chaichuanfa on 2019/1/11
@@ -89,7 +95,7 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
             try {
                 getBus().register(this);
             } catch (EventBusException e) {
-                e.printStackTrace();
+                // ignore
             }
         }
     }
@@ -127,6 +133,19 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
     public void onDestroy() {
         mDelegate.onDestroy();
         super.onDestroy();
+    }
+
+    protected <T extends View> void listenOnClick(T view, Consumer<T> onClick) {
+        addDisposable(Observable.<T>create(emitter -> {
+            view.setOnClickListener(v -> emitter.onNext(view));
+            emitter.setCancellable(() -> view.setOnClickListener(null));
+        }).throttleFirst(250, TimeUnit.MILLISECONDS)
+                .share()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onClick, throwable -> {
+                    Timber.e(throwable, "listen click error");
+                }));
     }
 
     protected void bindViewModel() {

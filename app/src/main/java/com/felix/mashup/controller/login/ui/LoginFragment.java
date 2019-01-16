@@ -1,41 +1,44 @@
-package ${featurePackageName}.ui;
+package com.felix.mashup.controller.login.ui;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseFragment;
-import ${featurePackageName}.di.${componentClass};
-import ${featurePackageName}.${viewModelClass};
-import com.felix.mashup.databinding.${fragmentClass}Binding;
+import com.felix.mashup.controller.login.LoginViewModel;
+import com.felix.mashup.controller.login.di.LoginComponent;
+import com.felix.mashup.databinding.LoginFragmentBinding;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusException;
-import com.alibaba.android.arouter.facade.annotation.Route;
+
 import android.view.View;
+
 import javax.inject.Inject;
 
-@Route(path = "/${classToResource(featureName)}/fragment")
-public class ${fragmentClass} extends BaseFragment<${viewModelClass}, ${fragmentClass}Binding> {
+@Route(path = "/login/fragment")
+public class LoginFragment extends BaseFragment<LoginViewModel, LoginFragmentBinding> {
 
     @Inject
     EventBus mBus;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.${fragmentLayout};
+        return R.layout.login_fragment;
     }
 
     @Override
     protected void bindViewModel() {
         super.bindViewModel();
         mDataBinding.setViewmodel(mViewModel);
+        mDataBinding.setFragment(this);
     }
 
     @Override
     protected void bindViews(View view) {
-        // TODO: init view
     }
 
     @Override
     protected void injectDependencies() {
-        ${componentClass} component = this.getComponent(${componentClass}.class);
+        LoginComponent component = this.getComponent(LoginComponent.class);
         component.inject(this);
         if (mViewModel != null) {
             component.inject(mViewModel);
@@ -52,6 +55,10 @@ public class ${fragmentClass} extends BaseFragment<${viewModelClass}, ${fragment
     @Override
     protected EventBus getBus() {
         return mBus;
+    }
+
+    public void finishActivity(View view) {
+        mActivity.finishAfterTransition();
     }
 
 }

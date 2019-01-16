@@ -3,7 +3,7 @@ package ${featurePackageName}.di;
 import com.felix.common.di.PerActivity;
 import ${featurePackageName}.${activityClass};
 import ${featurePackageName}.ui.${fragmentClass};
-import ${featurePackageName}.vm.${viewModelClass};
+import ${featurePackageName}.${viewModelClass};
 import com.felix.mashup.app.di.ApplicationComponent;
 
 import dagger.Component;

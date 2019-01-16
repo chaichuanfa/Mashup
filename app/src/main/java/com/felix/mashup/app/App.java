@@ -3,7 +3,6 @@ package com.felix.mashup.app;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.facebook.stetho.Stetho;
 import com.felix.common.uitls.log.LogToFileTree;
-import com.felix.mashup.BuildConfig;
 import com.felix.mashup.app.di.AppConfigModule;
 import com.felix.mashup.app.di.ApplicationComponent;
 import com.felix.mashup.app.di.ApplicationModule;
@@ -46,7 +45,7 @@ public class App extends MultiDexApplication {
     }
 
     private void initARouter() {
-        if (BuildConfig.DEBUG) {
+        if (AppConfigModule.SHOW_LOG) {
             ARouter.openLog();
             ARouter.openDebug();
         }

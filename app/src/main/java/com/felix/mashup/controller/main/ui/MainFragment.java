@@ -1,14 +1,16 @@
 package com.felix.mashup.controller.main.ui;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseFragment;
+import com.felix.mashup.controller.main.MainViewModel;
 import com.felix.mashup.controller.main.di.MainComponent;
-import com.felix.mashup.controller.main.vm.MainViewModel;
 import com.felix.mashup.databinding.MainFragmentBinding;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusException;
 
+import android.view.Gravity;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -16,14 +18,11 @@ import javax.inject.Inject;
 /**
  * Created by chaichuanfa on 2019/1/15
  */
+@Route(path = "/main/fragment")
 public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBinding> {
 
     @Inject
     EventBus mBus;
-
-    public static MainFragment newInstance() {
-        return new MainFragment();
-    }
 
     @Override
     protected int getLayoutRes() {
@@ -32,7 +31,9 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
 
     @Override
     protected void bindViews(View view) {
-        mViewModel.showNetworkType();
+        setupNavigationDrawer();
+        mDataBinding.toolbar.setNavigationOnClickListener(
+                v -> mDataBinding.drawerLayout.openDrawer(Gravity.START));
     }
 
     @Override
@@ -51,7 +52,7 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
                 try {
                     mBus.register(mViewModel);
                 } catch (EventBusException e) {
-                    e.printStackTrace();
+                    // ignore
                 }
             }
         }
@@ -61,4 +62,28 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
     protected EventBus getBus() {
         return mBus;
     }
+
+    private void setupNavigationDrawer() {
+        mDataBinding.drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        mDataBinding.navView.setNavigationItemSelectedListener(menuItem -> {
+            if (menuItem.isChecked()) {
+                mDataBinding.drawerLayout.closeDrawers();
+                return true;
+            }
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_menu_news:
+                    mViewModel.setMenuItemSelected(0);
+                    break;
+                case R.id.navigation_menu_wechat:
+                    mViewModel.setMenuItemSelected(1);
+                    break;
+                default:
+                    break;
+            }
+            menuItem.setChecked(true);
+            mDataBinding.drawerLayout.closeDrawers();
+            return true;
+        });
+    }
+
 }

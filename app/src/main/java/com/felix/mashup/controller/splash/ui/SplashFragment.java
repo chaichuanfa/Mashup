@@ -1,25 +1,28 @@
-package ${featurePackageName}.ui;
+package com.felix.mashup.controller.splash.ui;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseFragment;
-import ${featurePackageName}.di.${componentClass};
-import ${featurePackageName}.${viewModelClass};
-import com.felix.mashup.databinding.${fragmentClass}Binding;
+import com.felix.mashup.controller.splash.SplashViewModel;
+import com.felix.mashup.controller.splash.di.SplashComponent;
+import com.felix.mashup.databinding.SplashFragmentBinding;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusException;
-import com.alibaba.android.arouter.facade.annotation.Route;
+
 import android.view.View;
+
 import javax.inject.Inject;
 
-@Route(path = "/${classToResource(featureName)}/fragment")
-public class ${fragmentClass} extends BaseFragment<${viewModelClass}, ${fragmentClass}Binding> {
+@Route(path = "/splash/fragment")
+public class SplashFragment extends BaseFragment<SplashViewModel, SplashFragmentBinding> {
 
     @Inject
     EventBus mBus;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.${fragmentLayout};
+        return R.layout.splash_fragment;
     }
 
     @Override
@@ -30,12 +33,15 @@ public class ${fragmentClass} extends BaseFragment<${viewModelClass}, ${fragment
 
     @Override
     protected void bindViews(View view) {
-        // TODO: init view
+        mViewModel.getRouteLiveEvent().observe(this, aVoid -> {
+            startRouter("/main/activity");
+            mActivity.finishAfterTransition();
+        });
     }
 
     @Override
     protected void injectDependencies() {
-        ${componentClass} component = this.getComponent(${componentClass}.class);
+        SplashComponent component = this.getComponent(SplashComponent.class);
         component.inject(this);
         if (mViewModel != null) {
             component.inject(mViewModel);

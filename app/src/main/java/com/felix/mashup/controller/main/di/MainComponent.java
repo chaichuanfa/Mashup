@@ -4,7 +4,7 @@ import com.felix.common.di.PerActivity;
 import com.felix.mashup.app.di.ApplicationComponent;
 import com.felix.mashup.controller.main.MainActivity;
 import com.felix.mashup.controller.main.ui.MainFragment;
-import com.felix.mashup.controller.main.vm.MainViewModel;
+import com.felix.mashup.controller.main.MainViewModel;
 import com.felix.model.user_info.module.UserInfoModule;
 
 import dagger.Component;

@@ -36,7 +36,7 @@ public abstract class BaseCommonActivity extends AppCompatActivity implements IS
             try {
                 getBus().register(this);
             } catch (EventBusException e) {
-                e.printStackTrace();
+                // ignore
             }
         }
     }

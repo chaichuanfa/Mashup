@@ -116,6 +116,7 @@ dependencies {
     implementation generalDeps.workRxjava2
 
     implementation generalDeps.fragmentation
+    implementation generalDeps.smartRefreshLayout
 
     //utils
     implementation generalDeps.butterKnife
@@ -124,6 +125,10 @@ dependencies {
     annotationProcessor generalDeps.eventbusProcessor
     implementation generalDeps.Arouter
     annotationProcessor generalDeps.ArouterCompiler
+    implementation (generalDeps.permissionsDispatcher) {
+        exclude module: 'support-v13'
+    }
+    annotationProcessor generalDeps.permissionsProcessor
 
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor

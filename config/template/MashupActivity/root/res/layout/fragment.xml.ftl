@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewmodel"
-                type="${featurePackageName}.vm.${viewModelClass}"
+                type="${featurePackageName}.${viewModelClass}"
                 />
     </data>
 

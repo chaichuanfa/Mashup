@@ -2,7 +2,7 @@
 <template
     format="5"
     revision="1"
-    name="MVVM + JetPack"
+    name="Mashup"
     minApi="14"
     minBuildApi="14"
     description="Creates a new activity and a fragment with view model">
@@ -121,7 +121,7 @@
     <!-- 128x128 thumbnails relative to template.xml -->
     <thumbs>
         <!-- default thumbnail is required -->
-        <thumb>template_blank_activity.png</thumb>
+        <thumb>template_mashup_activity.png</thumb>
     </thumbs>
 
     <globals file="globals.xml.ftl" />

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+                name="viewmodel"
+                type="com.felix.mashup.controller.splash.SplashViewModel"
+                />
+    </data>
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:fitsSystemWindows="true"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@color/white"
+            tools:context="com.felix.mashup.controller.splash.ui.SplashFragment"
+            >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="40sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="180dp"
+                android:text="@string/app_name"
+                android:textStyle="bold"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:textColor="@android:color/darker_gray"
+                android:text="@string/power_by"
+                android:gravity="center"
+                />
+
+        <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_oval_translucent"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:autoLink="all"
+                android:linksClickable="true"
+                android:textColorLink="@color/colorPrimary"
+                android:text="@{String.valueOf(viewmodel.mCountdownObservable), default=`3`}"
+                />
+
+    </RelativeLayout>
+</layout>

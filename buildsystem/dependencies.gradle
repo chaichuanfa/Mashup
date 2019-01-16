@@ -102,5 +102,8 @@ ext {
             stetho                     : "com.facebook.stetho:stetho:1.5.0",
             stethoOkhttp3              : "com.facebook.stetho:stetho-okhttp3:1.5.0",
             threetenabp                : "com.jakewharton.threetenabp:threetenabp:1.1.1",
+            permissionsDispatcher      : "com.github.hotchemi:permissionsdispatcher:3.3.1",
+            permissionsProcessor       : "com.github.hotchemi:permissionsdispatcher-processor:3.3.1",
+            smartRefreshLayout         : "com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1",
     ]
 }
