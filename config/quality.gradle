@@ -10,7 +10,7 @@ def reportsDir = "${project.buildDir}/reports"
 checkstyle {
     // will fire "java.lang.ClassNotFoundException: com.puppycrawl.tools.checkstyle
     // .CheckStyleTask" with version 6.10.1
-    toolVersion '6.5'
+    toolVersion '7.0'
 
     configFile file('../config/quality/checkstyle/checkstyle.xml')
 
@@ -25,6 +25,8 @@ task checkstyle(type: Checkstyle, group: 'verification') {
     exclude '**/test/**'
     exclude '**/androidTest/**'
     exclude '**/R.java'
+    exclude '**/BR.java'
+    exclude '**/databinding/**'
     exclude '**/BuildConfig.java'
 
     if (project.hasProperty('checkCommit') && project.property("checkCommit")) {
@@ -61,10 +63,11 @@ findbugs {
 }
 task findbugs(type: FindBugs, group: 'verification') {
     description 'Run findbugs'
-    classes = files("${project.rootDir}/${project.getName()}/build/intermediates/classes")
+    classes = files("${project.rootDir}/${project.getName()}/build/intermediates/javac")
     source 'src'
     include '**/*.java'
     exclude '**/gen/**'
+    exclude '**/databinding/**'
     reports {
         xml.enabled = false
         html.enabled = true
@@ -85,6 +88,7 @@ task pmd(type: Pmd) {
 
     source 'src/main/java'
     exclude '**/gen/**'
+    exclude '**/databinding/**'
 
     if (project.hasProperty('checkCommit') && project.property("checkCommit")) {
         def ft = filterCommitter(getChangeFiles())
