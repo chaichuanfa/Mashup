@@ -78,7 +78,13 @@ dependencies {
     compile generalDeps.timber
     compile generalDeps.butterKnife
     annotationProcessor generalDeps.butterKnifeProcessor
+    compile generalDeps.baseRecyclerViewHelper
     compile generalDeps.fresco
+    compile generalDeps.frescoAnimatedGif
+    compile generalDeps.frescoAnimatedWebp
+    compile(generalDeps.frescoPipelineOkhttp3) {
+        exclude module: 'okhttp'
+    }
     compile generalDeps.apache_commons_codec
     compile generalDeps.materialDialogs
     compile generalDeps.eventbus
@@ -98,8 +104,12 @@ dependencies {
     annotationProcessor generalDeps.daggerProcessor
     compile generalDeps.ok2curl
     compile generalDeps.stetho
-    compile generalDeps.stethoOkhttp3
+    compile (generalDeps.stethoOkhttp3) {
+        exclude module: 'okhttp'
+    }
     compile generalDeps.threetenabp
+    compile generalDeps.atoast
+    compile generalDeps.magicIndicator
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

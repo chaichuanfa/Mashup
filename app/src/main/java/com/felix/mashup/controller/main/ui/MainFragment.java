@@ -1,6 +1,7 @@
 package com.felix.mashup.controller.main.ui;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.felix.mashup.R;
 import com.felix.mashup.base.BaseFragment;
 import com.felix.mashup.controller.main.MainViewModel;
@@ -30,16 +31,10 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
     }
 
     @Override
-    protected void bindViews(View view) {
-        setupNavigationDrawer();
-        mDataBinding.toolbar.setNavigationOnClickListener(
-                v -> mDataBinding.drawerLayout.openDrawer(Gravity.START));
-    }
-
-    @Override
     protected void bindViewModel() {
         super.bindViewModel();
         mDataBinding.setViewmodel(mViewModel);
+        mDataBinding.setFragment(this);
     }
 
     @Override
@@ -63,8 +58,19 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
         return mBus;
     }
 
+    @Override
+    protected void bindViews(View view) {
+        setupNavigationDrawer();
+        loadRootFragment(R.id.contentFrame, (NewsControllerFragment) ARouter.getInstance()
+                .build("/news_controller/fragment")
+                .navigation());
+    }
+
+    public void navigationOnClick(View view) {
+        mDataBinding.drawerLayout.openDrawer(Gravity.START);
+    }
+
     private void setupNavigationDrawer() {
-        mDataBinding.drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
         mDataBinding.navView.setNavigationItemSelectedListener(menuItem -> {
             if (menuItem.isChecked()) {
                 mDataBinding.drawerLayout.closeDrawers();
@@ -72,10 +78,30 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
             }
             switch (menuItem.getItemId()) {
                 case R.id.navigation_menu_news:
-                    mViewModel.setMenuItemSelected(0);
+                    mViewModel.setMenuItemSelected(MainMenu.NEWS);
+                    showHideFragment(findChildFragment(NewsControllerFragment.class));
                     break;
                 case R.id.navigation_menu_wechat:
-                    mViewModel.setMenuItemSelected(1);
+                    mViewModel.setMenuItemSelected(MainMenu.WECHAT_SIFT);
+                    WeChatSiftFragment weChatSiftFragment = findChildFragment(
+                            WeChatSiftFragment.class);
+                    if (weChatSiftFragment == null) {
+                        startChild((WeChatSiftFragment) ARouter.getInstance()
+                                .build("/wechat_sift/fragment")
+                                .navigation());
+                    } else {
+                        showHideFragment(weChatSiftFragment);
+                    }
+                    break;
+                case R.id.navigation_menu_joke:
+                    JokeFragment jokeFragment = findChildFragment(JokeFragment.class);
+                    if (jokeFragment == null) {
+                        startChild((JokeFragment) ARouter.getInstance()
+                                .build("/joke/fragment")
+                                .navigation());
+                    } else {
+                        showHideFragment(jokeFragment);
+                    }
                     break;
                 default:
                     break;
@@ -84,6 +110,12 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
             mDataBinding.drawerLayout.closeDrawers();
             return true;
         });
+    }
+
+    public enum MainMenu {
+        NEWS,
+        WECHAT_SIFT,
+        JOKE
     }
 
 }

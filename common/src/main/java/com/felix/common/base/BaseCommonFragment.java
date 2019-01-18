@@ -442,6 +442,26 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
         mDelegate.showHideFragment(showFragment, hideFragment);
     }
 
+    public void startChild(ISupportFragment toFragment) {
+        mDelegate.startChild(toFragment);
+    }
+
+    public void startChild(ISupportFragment toFragment, @LaunchMode int launchMode) {
+        mDelegate.startChild(toFragment, launchMode);
+    }
+
+    public void startChildForResult(ISupportFragment toFragment, int requestCode) {
+        mDelegate.startForResult(toFragment, requestCode);
+    }
+
+    public void startChildWithPop(ISupportFragment toFragment) {
+        mDelegate.startWithPop(toFragment);
+    }
+
+    public void replaceChildFragment(ISupportFragment toFragment, boolean addToBackStack) {
+        mDelegate.replaceChildFragment(toFragment, addToBackStack);
+    }
+
     public void start(ISupportFragment toFragment) {
         mDelegate.start(toFragment);
     }

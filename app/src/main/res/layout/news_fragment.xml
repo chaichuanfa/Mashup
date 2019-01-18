@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="com.felix.common.uitls.databinding.RecyclerViewBindingAdapter.LoadAnim"/>
+
+        <variable
+                name="viewmodel"
+                type="com.felix.mashup.controller.main.MainViewModel"
+                />
+    </data>
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            tools:context="com.felix.mashup.controller.main.ui.NewsFragment"
+            >
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:itemLoadAnimation="@{LoadAnim.ALPHAIN}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                >
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+</layout>

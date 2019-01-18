@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+                name="news"
+                type="com.felix.model.db.news.News"
+                />
+    </data>
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@color/white"
+            >
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/textColorPrimary"
+                android:layout_toStartOf="@+id/thumbnail"
+                android:layout_marginEnd="12dp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:text="@{news.title}"
+                tools:text="一月大财喜盈门的五生肖，钞票数不完，财喜入门，财运缠身, 财运缠身财运缠身财运缠身"
+                />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/thumbnail"
+                android:layout_width="100dp"
+                android:layout_height="64dp"
+                android:layout_alignParentEnd="true"
+                android:imageUrl="@{news.thumbnail_pic_s}"
+                app:actualImageScaleType="centerCrop"
+                tools:background="@color/colorPrimary"
+                />
+
+        <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textSize="11sp"
+                android:textColor="@android:color/darker_gray"
+                android:singleLine="true"
+                android:layout_marginEnd="8dp"
+                android:text="@{news.author_name}"
+                tools:text="夕阳道"
+                />
+
+        <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/author"
+                android:layout_alignParentBottom="true"
+                android:singleLine="true"
+                android:textSize="11sp"
+                android:textColor="@android:color/darker_gray"
+                android:text="@{news.date}"
+                tools:text="2019-01-17 15:04"
+                />
+
+        <ImageView
+                android:id="@+id/delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_close"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                />
+
+    </RelativeLayout>
+</layout>

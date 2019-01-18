@@ -4,6 +4,7 @@ allprojects {
             dirs '../aars'
         }
 
+        maven { url "https://jitpack.io" }
         jcenter()
         mavenCentral()
         mavenLocal()
@@ -35,6 +36,7 @@ ext {
     nav_version = "1.0.0-alpha09"
     work_version = "1.0.0-beta01"
     guavaVersion = "27.0.1-android"
+    frescoVersion = "1.9.0"
 
 
     generalDeps = [
@@ -51,8 +53,8 @@ ext {
             autoValueParcelProcessor   : "com.ryanharter.auto.value:auto-value-parcel:0.2.6",
 
             // network
-            okhttp                     : "com.squareup.okhttp3:okhttp:3.9.1",
-            okhttp_logging_intercepteor: "com.squareup.okhttp3:logging-interceptor:3.9.1",
+            okhttp                     : "com.squareup.okhttp3:okhttp:3.12.1",
+            okhttp_logging_intercepteor: "com.squareup.okhttp3:logging-interceptor:3.12.1",
             retrofit                   : "com.squareup.retrofit2:retrofit:2.3.0",
             retrofit_converter_gson    : "com.squareup.retrofit2:converter-gson:2.3.0",
             retrofit_adapter_rxjava2   : "com.squareup.retrofit2:adapter-rxjava2:2.3.0",
@@ -90,7 +92,10 @@ ext {
             timber                     : "com.jakewharton.timber:timber:4.6.0",
             butterKnife                : "com.jakewharton:butterknife:8.8.1",
             butterKnifeProcessor       : "com.jakewharton:butterknife-compiler:8.8.1",
-            fresco                     : "com.facebook.fresco:fresco:1.7.1",
+            fresco                     : "com.facebook.fresco:fresco:${frescoVersion}",
+            frescoAnimatedGif          : "com.facebook.fresco:animated-gif:${frescoVersion}",
+            frescoAnimatedWebp         : "com.facebook.fresco:animated-webp:${frescoVersion}",
+            frescoPipelineOkhttp3      : "com.facebook.fresco:imagepipeline-okhttp3:${frescoVersion}",
             apache_commons_codec       : "commons-codec:commons-codec:1.11",
             materialDialogs            : 'com.afollestad.material-dialogs:core:0.9.6.0',
             eventbus                   : "org.greenrobot:eventbus:3.1.1",
@@ -105,5 +110,8 @@ ext {
             permissionsDispatcher      : "com.github.hotchemi:permissionsdispatcher:3.3.1",
             permissionsProcessor       : "com.github.hotchemi:permissionsdispatcher-processor:3.3.1",
             smartRefreshLayout         : "com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1",
+            baseRecyclerViewHelper     : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46",
+            atoast                     : "com.github.chaichuanfa:atoast:0.0.3",
+            magicIndicator             : "com.github.hackware1993:MagicIndicator:1.5.0",
     ]
 }

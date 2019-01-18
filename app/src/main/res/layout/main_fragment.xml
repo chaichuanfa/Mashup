@@ -7,6 +7,11 @@
                 name="viewmodel"
                 type="com.felix.mashup.controller.main.MainViewModel"
                 />
+
+        <variable
+                name="fragment"
+                type="com.felix.mashup.controller.main.ui.MainFragment"
+                />
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -16,6 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/drawer_layout"
+            android:background="@color/white"
+            app:statusBarBackgroundColor="@{@color/colorPrimaryDark}"
             tools:context=".controller.main.ui.MainFragment"
             tools:openDrawer="start"
             >
@@ -41,6 +48,7 @@
                         app:theme="@style/Toolbar"
                         app:title="@{viewmodel.mToolbarTitle}"
                         app:navigationIcon="@drawable/ic_menu"
+                        app:navigationOnClickListener="@{fragment::navigationOnClick}"
                         />
             </android.support.design.widget.AppBarLayout>
 

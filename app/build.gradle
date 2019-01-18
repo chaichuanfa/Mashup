@@ -18,9 +18,10 @@ android {
         testInstrumentationRunner globalConfig.testInstrumentationRunner
         multiDexEnabled true
 
-        buildConfigField "String", "API_BASE_URL", "\"https://api.app.qwikmatch.com\""
+        buildConfigField "String", "API_BASE_URL", "\"http://v.juhe.cn\""
         buildConfigField "String", "BASIC_AUTH_ID", "\"test_id\""
         buildConfigField "String", "BASIC_AUTH_PASS", "\"test_pass\""
+        buildConfigField "String", "JUHE_APPKEY", "\"JH67d7b8fdce91888fdae3c5e1e8f7c598\""
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -125,10 +126,10 @@ dependencies {
     annotationProcessor generalDeps.eventbusProcessor
     implementation generalDeps.Arouter
     annotationProcessor generalDeps.ArouterCompiler
-    implementation (generalDeps.permissionsDispatcher) {
-        exclude module: 'support-v13'
-    }
-    annotationProcessor generalDeps.permissionsProcessor
+//    implementation (generalDeps.permissionsDispatcher) {
+//        exclude module: 'support-v13'
+//    }
+//    annotationProcessor generalDeps.permissionsProcessor
 
     compileOnly generalDeps.autoValue
     annotationProcessor generalDeps.autoValueProcessor

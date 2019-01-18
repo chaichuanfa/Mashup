@@ -9,6 +9,7 @@ import com.felix.common.di.provider.config.GsonConfig;
 import com.felix.common.di.provider.config.OkHttpConfig;
 import com.felix.common.di.provider.config.RetrofitConfig;
 import com.felix.common.uitls.Constants;
+import com.felix.common.uitls.net.ApiErrorAwareConverterFactory;
 import com.felix.common.uitls.net.AuthInterceptor;
 import com.felix.common.uitls.net.EmptyJsonLenientConverterFactory;
 import com.felix.common.uitls.time.ZonedDateTimeJsonConverter;
@@ -64,8 +65,8 @@ public class ModelBaseModule {
                 //https://github.com/ReactiveX/RxAndroid/issues/387
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 // Handle Empty Body. https://github.com/square/retrofit/issues/1554
-                .addConverterFactory(
-                        new EmptyJsonLenientConverterFactory(GsonConverterFactory.create(gson)))
+                .addConverterFactory(new ApiErrorAwareConverterFactory(
+                        new EmptyJsonLenientConverterFactory(GsonConverterFactory.create(gson))))
                 .build();
     }
 

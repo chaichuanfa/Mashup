@@ -1,44 +1,103 @@
 package com.felix.model.base;
 
-import android.arch.lifecycle.LiveData;
+import com.felix.common.uitls.net.RetrofitUtils;
+import com.felix.common.uitls.reactivex.RxUtils;
+
 import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
+import timber.log.Timber;
 
 /**
  * Created by chaichuanfa on 2019/1/11
  */
 // ResultType: Type for the Resource data
 // RequestType: Type for the API response
-public abstract class NetworkBoundResource<T, D> {
+public abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    // Called to save the result of the API response into the database
-    @WorkerThread
-    protected abstract void saveCallResult(@NonNull D item);
+    private CompositeDisposable mCompositeDisposable;
 
-    // Called with the data in the database to decide whether it should be
-    // fetched from the network.
+    private Subject mSubject = PublishSubject.create().<Resource<ResultType>>toSerialized();
+
+    private AtomicBoolean mLocalFirst;
+
     @MainThread
-    protected abstract boolean shouldFetch(@Nullable T data);
-
-    // Called to get the cached data from the database
-    @NonNull
-    @MainThread
-    protected abstract LiveData<T> loadFromDb();
-
-    // Called to create the API call.
-    @NonNull
-    @MainThread
-    protected abstract LiveData<ApiResponse<D>> createCall();
-
-    // Called when the fetch fails. The child class may want to reset components
-    // like rate limiter.
-    @MainThread
-    protected void onFetchFailed() {
+    public NetworkBoundResource() {
+        this(false);
     }
 
-    // returns a LiveData that represents the resource, implemented
-    // in the base class.
-    public abstract LiveData<Resource<T>> getAsLiveData();
+    /**
+     * 创建缓存-网络数据加载辅助类
+     *
+     * @param forceRefresh 缓存可用时强制刷新数据
+     */
+    @MainThread
+    public NetworkBoundResource(boolean forceRefresh) {
+        mCompositeDisposable = new CompositeDisposable();
+        mLocalFirst = new AtomicBoolean(true);
+        mSubject.onNext(Resource.loading(null));
+        mCompositeDisposable.add(loadFromDb().subscribeOn(Schedulers.io())
+                .subscribe(resultType -> {
+                    if (mLocalFirst.get()) {
+                        if (shouldFetch(resultType)) {
+                            mLocalFirst.set(false);
+                            mSubject.onNext(Resource.loading(resultType));
+                            fetchFromNetwork(resultType);
+                        } else {
+                            mLocalFirst.set(false);
+                            if (forceRefresh) {
+                                mSubject.onNext(Resource.loading(resultType));
+                                fetchFromNetwork(resultType);
+                            } else {
+                                mSubject.onNext(Resource.success(resultType));
+                            }
+                        }
+                    } else {
+                        mSubject.onNext(Resource.success(resultType));
+                    }
+                }, throwable -> {
+                    mSubject.onNext(Resource.error(throwable.toString(), null));
+                }));
+    }
+
+    private void fetchFromNetwork(final ResultType dbSource) {
+        mCompositeDisposable.add(createCall()
+                .doOnNext(this::saveCallResult)
+                .subscribe(RxUtils.idleConsumer(), throwable -> {
+                    mSubject.onNext(
+                            Resource.error(RetrofitUtils.getErrorMessage(throwable), dbSource));
+                }));
+    }
+
+    @MainThread
+    public Observable<Resource<ResultType>> getAsObservable() {
+        return mSubject
+                .share()
+                .doOnDispose(() -> {
+                    Timber.d("doOnDispose ----- ");
+                    mCompositeDisposable.dispose();
+                    mCompositeDisposable = null;
+                });
+    }
+
+    @WorkerThread
+    protected abstract void saveCallResult(RequestType resultType);
+
+    @WorkerThread
+    protected abstract boolean shouldFetch(ResultType data);
+
+    @MainThread
+    protected abstract Flowable<ResultType> loadFromDb();
+
+    @WorkerThread
+    protected abstract Flowable<RequestType> createCall();
+
 }
