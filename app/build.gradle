@@ -111,10 +111,6 @@ dependencies {
     implementation generalDeps.room
     annotationProcessor generalDeps.roomCompiler
     implementation generalDeps.roomRxjava2
-    implementation generalDeps.paging
-    implementation generalDeps.pagingRxjava2
-    implementation generalDeps.workRuntime
-    implementation generalDeps.workRxjava2
 
     implementation generalDeps.fragmentation
     implementation generalDeps.smartRefreshLayout
@@ -143,7 +139,6 @@ dependencies {
 
     testImplementation generalDeps.archCoreTest
     testImplementation generalDeps.roomTest
-    testImplementation generalDeps.pagingTest
     testImplementation 'junit:junit:4.12'
     androidTestImplementation generalDeps.workTest
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

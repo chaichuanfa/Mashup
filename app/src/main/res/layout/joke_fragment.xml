@@ -2,7 +2,7 @@
 <layout>
 
     <data>
-
+        <import type="com.felix.common.uitls.databinding.RecyclerViewBindingAdapter.LoadAnim"/>
         <variable
                 name="viewmodel"
                 type="com.felix.mashup.controller.main.MainViewModel"
@@ -24,6 +24,8 @@
                 android:id="@+id/mRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:itemLoadAnimation="@{LoadAnim.ALPHAIN}"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 >
 
         </android.support.v7.widget.RecyclerView>

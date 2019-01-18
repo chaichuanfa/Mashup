@@ -181,7 +181,7 @@ public abstract class BaseCommonFragment<V extends AndroidViewModel, D extends V
 
     private void clearDisposable() {
         if (this.mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
-            this.mCompositeDisposable.clear();
+            this.mCompositeDisposable.dispose();
         }
         mCompositeDisposable = null;
     }

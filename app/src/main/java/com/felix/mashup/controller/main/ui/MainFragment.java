@@ -94,6 +94,7 @@ public class MainFragment extends BaseFragment<MainViewModel, MainFragmentBindin
                     }
                     break;
                 case R.id.navigation_menu_joke:
+                    mViewModel.setMenuItemSelected(MainMenu.JOKE);
                     JokeFragment jokeFragment = findChildFragment(JokeFragment.class);
                     if (jokeFragment == null) {
                         startChild((JokeFragment) ARouter.getInstance()

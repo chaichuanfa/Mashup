@@ -69,6 +69,8 @@ ext {
             percent                    : "com.android.support:percent:${androidSupportSdkVersion}",
             multiDex                   : "com.android.support:multidex:1.0.1",
             constraintLayout           : 'com.android.support.constraint:constraint-layout:1.1.3',
+
+            //arch
             lifecycle                  : "android.arch.lifecycle:extensions:$lifecycle_version",
             lifecycleReactivestreams   : "android.arch.lifecycle:reactivestreams:$lifecycle_version",
             archCoreTest               : "android.arch.core:core-testing:$lifecycle_version",
@@ -79,15 +81,15 @@ ext {
             roomTest                   : "android.arch.persistence.room:testing:$room_version",
             paging                     : "android.arch.paging:runtime:$paging_version",
             pagingRxjava2              : "android.arch.paging:rxjava2:$paging_version",
-            pagingTest                 : "android.arch.paging:common:$paging_version",
+            pagingCommon               : "android.arch.paging:common:$paging_version",
             navigationFragment         : "android.arch.navigation:navigation-fragment:$nav_version",
             navigationUI               : "android.arch.navigation:navigation-ui:$nav_version",
             workRuntime                : "android.arch.work:work-runtime:$work_version",
             workRxjava2                : "android.arch.work:work-rxjava2:$work_version",
             workTest                   : "android.arch.work:work-testing:$work_version",
-            guava                      : "com.google.guava:guava:$guavaVersion",
 
             // utils
+            guava                      : "com.google.guava:guava:$guavaVersion",
             apacheCommon               : "org.apache.commons:commons-io:1.3.2",
             timber                     : "com.jakewharton.timber:timber:4.6.0",
             butterKnife                : "com.jakewharton:butterknife:8.8.1",

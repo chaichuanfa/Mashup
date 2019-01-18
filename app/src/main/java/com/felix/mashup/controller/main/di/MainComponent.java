@@ -9,6 +9,7 @@ import com.felix.mashup.controller.main.ui.MainFragment;
 import com.felix.mashup.controller.main.ui.NewsControllerFragment;
 import com.felix.mashup.controller.main.ui.NewsFragment;
 import com.felix.mashup.controller.main.ui.WeChatSiftFragment;
+import com.felix.model.joke_info.module.JokeModule;
 import com.felix.model.news_info.module.NewsModule;
 import com.felix.model.user_info.module.UserInfoModule;
 
@@ -21,7 +22,8 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class,
         modules = {
                 UserInfoModule.class,
-                NewsModule.class
+                NewsModule.class,
+                JokeModule.class
         }
 )
 public interface MainComponent {

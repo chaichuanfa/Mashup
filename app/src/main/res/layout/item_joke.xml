@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+                name="joke"
+                type="com.felix.model.db.joke.Joke"
+                />
+    </data>
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@color/white"
+            >
+
+        <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/textColorPrimary"
+                android:ellipsize="end"
+                android:text="@{joke.content}"
+                tools:text="一天早晨，妻子正在厨房里安排早餐的时候，丈夫发现他的衣柜抽屉里只剩下一双干净的袜子了，他并没有发任何牢骚来责怪妻子洗衣不勤快，只是对着厨房大声说：“亲爱的，要是我还有一只脚，那它就会没有袜子穿了。"
+                />
+
+    </RelativeLayout>
+</layout>

@@ -51,7 +51,7 @@ public abstract class BaseViewModel extends AndroidViewModel {
 
     private void clearDisposable() {
         if (this.mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
-            this.mCompositeDisposable.clear();
+            this.mCompositeDisposable.dispose();
         }
         mCompositeDisposable = null;
     }

@@ -62,6 +62,11 @@ dependencies {
     implementation generalDeps.constraintLayout
     implementation generalDeps.lifecycle
     implementation generalDeps.lifecycleReactivestreams
+    compile generalDeps.paging
+    compile generalDeps.pagingRxjava2
+    testImplementation generalDeps.pagingCommon
+    compile generalDeps.workRuntime
+    compile generalDeps.workRxjava2
 
     compile(generalDeps.fragmentation) {
         exclude module: 'appcompat-v7'

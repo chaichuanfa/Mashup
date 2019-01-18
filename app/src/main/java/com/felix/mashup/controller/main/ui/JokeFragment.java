@@ -5,17 +5,18 @@ import com.felix.mashup.R;
 import com.felix.mashup.base.BaseFragment;
 import com.felix.mashup.controller.main.MainViewModel;
 import com.felix.mashup.controller.main.di.MainComponent;
+import com.felix.mashup.controller.main.ui.adapter.JokeAdapter;
 import com.felix.mashup.databinding.JokeFragmentBinding;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusException;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.Animation;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 /**
  * Created by chaichuanfa on 2019/1/17
@@ -25,6 +26,8 @@ public class JokeFragment extends BaseFragment<MainViewModel, JokeFragmentBindin
 
     @Inject
     EventBus mBus;
+
+    private JokeAdapter mJokeAdapter;
 
     @Override
     protected void injectDependencies() {
@@ -66,7 +69,16 @@ public class JokeFragment extends BaseFragment<MainViewModel, JokeFragmentBindin
 
     @Override
     protected void bindViews(View view) {
-        Timber.d("bindViews --------- ");
+        mJokeAdapter = new JokeAdapter();
+        mJokeAdapter.bindToRecyclerView(mDataBinding.mRecyclerView);
+        mViewModel.getJokeData().observe(this, jokes -> {
+            mJokeAdapter.replaceData(jokes);
+        });
     }
 
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        mViewModel.loadJokes();
+    }
 }

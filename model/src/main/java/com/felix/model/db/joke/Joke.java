@@ -32,13 +32,8 @@ public class Joke {
         this.updatetime = updatetime;
     }
 
-
     public String getHashId() {
         return hashId;
-    }
-
-    public void setHashId(String hashId) {
-        this.hashId = hashId;
     }
 
     public String getContent() {

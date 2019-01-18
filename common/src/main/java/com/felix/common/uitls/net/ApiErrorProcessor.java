@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -62,7 +63,11 @@ public final class ApiErrorProcessor {
             if (resourceId > 0) {
                 mMainThreadHandler.post(() -> ToastUtils.toastError(resourceId));
             } else {
-                mMainThreadHandler.post(() -> ToastUtils.toastError(R.string.error_default));
+                if (!TextUtils.isEmpty(apiError.getReason())) {
+                    mMainThreadHandler.post(() -> ToastUtils.toastError(apiError.getReason()));
+                } else {
+                    mMainThreadHandler.post(() -> ToastUtils.toastError(R.string.error_default));
+                }
             }
         }
     }

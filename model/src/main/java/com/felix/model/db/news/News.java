@@ -44,10 +44,6 @@ public class News {
         return uniquekey;
     }
 
-    public void setUniquekey(String uniquekey) {
-        this.uniquekey = uniquekey;
-    }
-
     public String getTitle() {
         return title;
     }

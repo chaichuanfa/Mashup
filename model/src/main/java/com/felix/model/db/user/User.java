@@ -37,10 +37,6 @@ public class User {
         return avatar;
     }
 
-    public void setUid(long uid) {
-        this.uid = uid;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }

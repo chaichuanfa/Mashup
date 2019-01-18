@@ -82,7 +82,6 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
         return mSubject
                 .share()
                 .doOnDispose(() -> {
-                    Timber.d("doOnDispose ----- ");
                     mCompositeDisposable.dispose();
                     mCompositeDisposable = null;
                 });
